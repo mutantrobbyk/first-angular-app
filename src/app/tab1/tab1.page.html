@@ -12,6 +12,13 @@
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
+  <!-- add an ID below -->
+  <div *ngFor="let item of TodoList; let i = index"><div>
+    {{item.name}}
+  </div>
+  <!-- figure out how to delete -->
+<button  (click)="removeTodo(i)">Remove</button></div>
+  <input style="color: black;" #box (keyup.enter)='addTodo(box.value)' type="text" value=''>
 
   <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>
