@@ -17,8 +17,9 @@
     {{item.name}}
   </div>
   <!-- figure out how to delete -->
-<button  (click)="removeTodo(i)">Remove</button></div>
+<button  (click)="removeTodo(i)">Remove</button>
+<input style="color: black;"  (keyup.enter)='editTodo($event, i)' type="text" value=''>
+</div>
   <input style="color: black;" #box (keyup.enter)='addTodo(box.value)' type="text" value=''>
-
   <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>
