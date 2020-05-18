@@ -13,8 +13,8 @@
     </ion-toolbar>
   </ion-header>
   <!-- add an ID below -->
-  <div *ngFor="let item of TodoList; let i = index"><div>
-    {{item.name}}
+  <div *ngFor="let item of (TodoList | async); let i = index"><div>
+    {{item.name}}, {{item.id}}
   </div>
   <!-- figure out how to delete -->
 <button  (click)="removeTodo(i)">Remove</button>

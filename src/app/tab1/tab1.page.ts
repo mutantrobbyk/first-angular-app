@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { TodoService, ITodoList } from "./todo.service";
+import { Subject, Observable } from 'rxjs';
 
 enum ValList {
   ONE,
@@ -32,16 +33,16 @@ interface CommonRecord {
   styleUrls: ["tab1.page.scss"],
 })
 export class Tab1Page implements OnInit {
-  TodoList: ITodoList;
+  TodoList: Observable<ITodoList>;
   @ViewChild("box", { static: false })
   input: ElementRef;
-
+  
   constructor(public todo: TodoService) {}
   ngOnInit(): void {
-    this.TodoList = this.todo.getTodoList();
+    this.TodoList = this.todo.todoStream;
   }
   addTodo(name: string): void {
-    this.todo.addTodo(name);
+    this.todo.todoActionHandler({type:'add', payload: {name, id: new Date().getTime()}});
     this.input.nativeElement.value = "";
   }
   // bind remove function
