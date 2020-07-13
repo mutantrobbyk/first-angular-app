@@ -46,11 +46,13 @@ export class Tab1Page implements OnInit {
     this.input.nativeElement.value = "";
   }
   // bind remove function
-  removeTodo(index: number): void {
-    this.todo.removeTodo(index);
+  removeTodo(id: number): void {
+    this.todo.todoActionHandler({type: 'remove', payload: {id}})
   }
-  editTodo(event: {target: {value: string}}, index: number): void {
-    this.todo.editTodo(event.target.value, index);
+  editTodo(name: string, id: number) {
+    console.log(name)
+    this.todo.todoActionHandler({type: 'edit', payload: {name, id}});
+    this.input.nativeElement.value = "";
   }
   test<T extends B>(a: number, b: T): T {
     return b;

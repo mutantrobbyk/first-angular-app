@@ -13,12 +13,12 @@
     </ion-toolbar>
   </ion-header>
   <!-- add an ID below -->
-  <div *ngFor="let item of (TodoList | async); let i = index"><div>
+  <div *ngFor="let item of (TodoList | async);"><div>
     {{item.name}}, {{item.id}}
   </div>
   <!-- figure out how to delete -->
-<button  (click)="removeTodo(i)">Remove</button>
-<input style="color: black;"  (keyup.enter)='editTodo($event, i)' type="text" value=''>
+<button  (click)="removeTodo(item.id)">Remove</button>
+<input style="color: black;"  (keyup.enter)='editTodo($event.target.value, item.id)' type="text" value=''>
 </div>
   <input style="color: black;" #box (keyup.enter)='addTodo(box.value)' type="text" value=''>
   <app-explore-container name="Tab 1 page"></app-explore-container>

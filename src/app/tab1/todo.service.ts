@@ -2,13 +2,13 @@ import { Injectable } from "@angular/core";
 import { Subject, BehaviorSubject } from "rxjs";
 import { take } from "rxjs/operators";
 export interface ITodo {
-  name: string;
+  name?: string;
   id: number
 }
 export interface ITodoList extends Array<ITodo> {}
 @Injectable({ providedIn: "root" })
 export class TodoService {
-  todoStream = new BehaviorSubject([{ name: "Laundry", id: 0 }]);
+  todoStream = new BehaviorSubject<ITodoList>([{ name: "Laundry", id: 0 }]);
 //   private todoList: ITodoList = [];
   todoActionHandler(action: {
     type: "add" | "edit" | "remove";
@@ -20,8 +20,10 @@ export class TodoService {
             this.todoStream.next(this.addTodo(todos, action.payload))
           break;
         case "edit":
+          this.todoStream.next(this.editTodo(todos, action.payload))
           break;
         case "remove":
+          this.todoStream.next(this.removeTodo(todos, action.payload))
           break;
       }
     });
@@ -29,14 +31,18 @@ export class TodoService {
   addTodo(todos: ITodoList, nextOne: ITodo) {
     return [...todos, nextOne]
   }
-  removeTodo(index: number): void {
-    // this.todoList.splice(index, 1);
+  removeTodo(todos: ITodoList, v: ITodo){
+    let index = todos.findIndex(el => el.id === v.id)
+    todos.splice(index, 1); 
+    return todos
   }
 //   getTodoList(): ITodoList {
 //     return []
 //   }
-  editTodo(value: string, index: number): void {
-    // this.todoList[index] = { name: value };
+  editTodo(todos: ITodoList, editValue: ITodo){
+    let index = todos.findIndex(el => el.id === editValue.id)
+    todos.splice(index, 1, editValue)
+    return todos
   }
   // makeCall(val1, val2){
   //     axios.post('/api/login', {username: val1, password: val2}).then(result => {
