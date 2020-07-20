@@ -9,9 +9,17 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <!-- add an ID below -->
+  <div *ngFor="let item of (todos$ | async);"><div>
+    {{item.name}}, {{item.id}}
+  </div>
+  <!-- figure out how to delete -->
+<button  (click)="removeTodo(item.id)">Remove</button>
+<input style="color: black;"  (keyup.enter)='editTodo($event.target.value, item.id)' type="text" value=''>
+</div>
+  <input style="color: black;" #box (keyup.enter)='addTodo(box.value)' type="text" value=''>
+  <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>
